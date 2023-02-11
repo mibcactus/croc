@@ -18,13 +18,13 @@ public class CrocGame : Game {
     private int screenHeight = 1080;
     private Vector2 centre;
     
+    private GameState _state = GameState.MenuScreen;
     private int currentTick = 0;
 
     private MouseState _mouseState;
     private DateTime timeWhenPressed;
     
     
-
     //bg textures
     private Texture2D sky;
     private Texture2D hill;
@@ -40,13 +40,17 @@ public class CrocGame : Game {
     //game font
     private SpriteFont _font;
     
+    //button stuff
+    private PlayButton _playButton;
+    private Texture2D buttonTexture;
+    
     private void debugMessages() {
         Vector2 location = new Vector2(20, 120);
         Color colour = Color.Crimson;
         drawEquation(-1500, 5700, 460);
         _spriteBatch.DrawString(_font, "Current time: " + currentTick, location, colour);
         _spriteBatch.DrawString(_font, "Mouse position: " + _mouseState.Position, new Vector2(20, 140), colour);
-        //_spriteBatch.DrawString(_font, "Bush position: "+ bush.position, new Vector2(20, 140), colour);
+        _spriteBatch.DrawString(_font, "Current scene: "+ _state, new Vector2(20, 160), colour);
     }
     private void loadBackground() {
         sky = Content.Load<Texture2D>("daysky");
@@ -70,16 +74,14 @@ public class CrocGame : Game {
             bushes[i] = new Bush(Content.Load<Texture2D>("bush"));
         }
         _player = new Player(Content.Load<Texture2D>("standing"));
-        
-        
-        // bushes = new Entity[bushAmount](Content.Load<Texture2D>("bush"), new Vector2(rand.Next(200, 1000), rand.Next(100, 1500) ) );
+
         base.Initialize();
     }
 
     protected override void LoadContent() {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _font = Content.Load<SpriteFont>("file");
-        
+
         loadBackground();
     }
 
@@ -105,15 +107,36 @@ public class CrocGame : Game {
                 DEBUG = true;
             }
         }
+
+        switch (_state) {
+            case GameState.MenuScreen:
+                updateMainMenu(gameTime);
+                break;
+            case GameState.HillLevel:
+                updateGamePlay(gameTime);
+                break;
+            case GameState.GameOver:
+                updateGameOver(gameTime);
+                break;
+        }
+       
         
+        base.Update(gameTime);
+    }
+
+    private void updateMainMenu(GameTime gameTime) {
+        if (_playButton == null) {
+            _playButton = new PlayButton(Content.Load<Texture2D>("bush"), 40, 40, 200, 150, "PLAY GAME", _state);
+        }
+        else {
+            _playButton.checkIfClicked(_mouseState, ref _state);
+        }
         
+    }
+
+    private void updateGamePlay(GameTime gameTime) {
         _player.getInput((float) gameTime.ElapsedGameTime.TotalSeconds);
         
-        
-        
-        
-        
-
         if (currentTick == 600) {
             sky = Content.Load<Texture2D>("nightsky");
         } else if (currentTick == 1199) {
@@ -125,12 +148,11 @@ public class CrocGame : Game {
         } else {
             currentTick = 0;
         }
-        
-        base.Update(gameTime);
+    }
+    private void updateGameOver(GameTime gameTime) {
+        throw new NotImplementedException();
     }
 
-    
-    
 
     protected void drawEquation(int n, int m, int c) {
         float x, y;
@@ -147,21 +169,52 @@ public class CrocGame : Game {
         }
     }
 
+    
+
     protected override void Draw(GameTime gameTime) {
         GraphicsDevice.Clear(Color.CornflowerBlue);
         
         _spriteBatch.Begin();
+        
+        switch (_state) {
+            case GameState.MenuScreen:
+                drawMainMenu(gameTime);
+                break;
+            case GameState.HillLevel:
+                drawGameplay(gameTime);
+                break;  
+            case GameState.GameOver:
+                drawGameOver(gameTime);
+                break;
+        }
 
+        if (DEBUG) { debugMessages(); }
+        
+        _spriteBatch.End();
+        
+        base.Draw(gameTime);
+    }
+
+    private void drawGameplay(GameTime gameTime) {
         drawBackground();
         foreach (var bush in bushes) {
             bush.draw(_spriteBatch);
         }
 
         _player.draw(_spriteBatch);
+    }
 
-        if (DEBUG) { debugMessages(); }
-        _spriteBatch.End();
-        
-        base.Draw(gameTime);
+    private void drawMainMenu(GameTime gameTime) {
+        currentTick = 1000;
+        drawBackground();
+        _playButton.drawButton(_spriteBatch, _font);
+    }
+
+    private void drawPlayButton() {
+        String str = "PLAY";
+    }
+
+    private void drawGameOver(GameTime gameTime) {
+        throw new NotImplementedException();
     }
 }
