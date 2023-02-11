@@ -9,7 +9,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 namespace croc;
 
 public class CrocGame : Game {
-    private bool DEBUG = true;
+    private bool DEBUG;
     
     //graphics stuff
     private GraphicsDeviceManager _graphics;
@@ -19,17 +19,17 @@ public class CrocGame : Game {
     private Vector2 centre;
     
     private int currentTick = 0;
-    private Random rand;
+
+    private MouseState _mouseState;
+    private DateTime timeWhenPressed;
 
     //bg textures
     private Texture2D sky;
     private Texture2D hill;
     
     //bush
-    //private Entity[] bushes;
     private Bush[] bushes = new Bush[5];
     
-
     //game font
     private SpriteFont _font;
     
@@ -38,6 +38,7 @@ public class CrocGame : Game {
         Color colour = Color.Crimson;
         drawEquation(-1500, 5700, 460);
         _spriteBatch.DrawString(_font, "Current time: " + currentTick, location, colour);
+        _spriteBatch.DrawString(_font, "Mouse position: " + _mouseState.Position, new Vector2(20, 140), colour);
         //_spriteBatch.DrawString(_font, "Bush position: "+ bush.position, new Vector2(20, 140), colour);
     }
     private void loadBackground() {
@@ -85,6 +86,17 @@ public class CrocGame : Game {
             Exit();
         }
 
+        _mouseState = Mouse.GetState();
+
+        if (_mouseState.LeftButton == ButtonState.Pressed && DateTime.Now > timeWhenPressed.AddSeconds(0.2)) {
+            timeWhenPressed = DateTime.Now;
+            if (DEBUG) {
+                DEBUG = false;
+            } else {
+                DEBUG = true;
+            }
+        }
+
         if (currentTick == 600) {
             sky = Content.Load<Texture2D>("nightsky");
         } else if (currentTick == 1199) {
@@ -97,12 +109,11 @@ public class CrocGame : Game {
             currentTick = 0;
         }
         
-
-        
-        
         base.Update(gameTime);
     }
 
+    
+    
 
     protected void drawEquation(int n, int m, int c) {
         float x, y;
