@@ -22,10 +22,17 @@ public class CrocGame : Game {
 
     private MouseState _mouseState;
     private DateTime timeWhenPressed;
+    
+    
 
     //bg textures
     private Texture2D sky;
     private Texture2D hill;
+    
+    //entities
+    
+    //player
+    private Player _player;
     
     //bush
     private Bush[] bushes = new Bush[5];
@@ -50,6 +57,7 @@ public class CrocGame : Game {
         _graphics.PreferredBackBufferWidth = screenWidth;
         _graphics.PreferredBackBufferHeight = screenHeight;
         _graphics.ApplyChanges();
+        
         centre = new Vector2(screenWidth / 2, screenHeight / 2);
         
 
@@ -61,6 +69,7 @@ public class CrocGame : Game {
         for (int i = 0; i < bushes.Length; i++) {
             bushes[i] = new Bush(Content.Load<Texture2D>("bush"));
         }
+        _player = new Player(Content.Load<Texture2D>("standing"));
         
         
         // bushes = new Entity[bushAmount](Content.Load<Texture2D>("bush"), new Vector2(rand.Next(200, 1000), rand.Next(100, 1500) ) );
@@ -82,13 +91,13 @@ public class CrocGame : Game {
     
     
     protected override void Update(GameTime gameTime) {
+        _mouseState = Mouse.GetState();
+        
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) {
             Exit();
         }
 
-        _mouseState = Mouse.GetState();
-
-        if (_mouseState.LeftButton == ButtonState.Pressed && DateTime.Now > timeWhenPressed.AddSeconds(0.2)) {
+        if (Keyboard.GetState().IsKeyDown(Keys.R) && DateTime.Now > timeWhenPressed.AddSeconds(0.2)) {
             timeWhenPressed = DateTime.Now;
             if (DEBUG) {
                 DEBUG = false;
@@ -96,6 +105,14 @@ public class CrocGame : Game {
                 DEBUG = true;
             }
         }
+        
+        
+        _player.getInput((float) gameTime.ElapsedGameTime.TotalSeconds);
+        
+        
+        
+        
+        
 
         if (currentTick == 600) {
             sky = Content.Load<Texture2D>("nightsky");
@@ -140,6 +157,7 @@ public class CrocGame : Game {
             bush.draw(_spriteBatch);
         }
 
+        _player.draw(_spriteBatch);
 
         if (DEBUG) { debugMessages(); }
         _spriteBatch.End();
