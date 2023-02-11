@@ -4,6 +4,7 @@ using System.Numerics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace croc;
@@ -30,8 +31,11 @@ public class CrocGame : Game {
     private Texture2D hill;
     private Texture2D menuBG;
     
+    //cursor textures
+    private Texture2D normalCursor;
+    private Texture2D hightlightedCursor;
+
     //entities
-    
     //player
     private Player _player;
     
@@ -52,6 +56,7 @@ public class CrocGame : Game {
         _spriteBatch.DrawString(_font, "Current time: " + currentTick, location, colour);
         _spriteBatch.DrawString(_font, "Mouse position: " + _mouseState.Position, new Vector2(20, 140), colour);
         _spriteBatch.DrawString(_font, "Current scene: "+ _state, new Vector2(20, 160), colour);
+        _spriteBatch.DrawString(_font, "Clickable: " + _player.clickable, new Vector2(20, 180), colour);
     }
     private void loadBackground() {
         sky = Content.Load<Texture2D>("daysky");
@@ -76,15 +81,33 @@ public class CrocGame : Game {
             bushes[i] = new Bush(Content.Load<Texture2D>("bush"));
         }
         _player = new Player(Content.Load<Texture2D>("standing"));
+        
+        normalCursor = Content.Load<Texture2D>("cursor");
+        hightlightedCursor = Content.Load<Texture2D>("selected");
+        MouseCursor.FromTexture2D(normalCursor, 0, 0);
 
         base.Initialize();
     }
 
+    private Song song;
+    
     protected override void LoadContent() {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _font = Content.Load<SpriteFont>("file");
+        _player.addWalkingTexture(Content.Load<Texture2D>("walking"));
+
+        this.song = Content.Load<Song>("frogger");
+        MediaPlayer.Play(song);
+        MediaPlayer.IsRepeating = true;
+        MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
 
         loadBackground();
+    }
+    
+    void MediaPlayer_MediaStateChanged(object sender, System.EventArgs e) {
+        // 0.0f is silent, 1.0f is full volume
+        MediaPlayer.Volume -= 0.1f;
+        MediaPlayer.Play(song);
     }
 
 
@@ -137,7 +160,7 @@ public class CrocGame : Game {
     }
 
     private void updateGamePlay(GameTime gameTime) {
-        _player.getInput((float) gameTime.ElapsedGameTime.TotalSeconds);
+        _player.getInput((float) gameTime.ElapsedGameTime.TotalSeconds, _mouseState);
         
         if (currentTick == 600) {
             sky = Content.Load<Texture2D>("nightsky");

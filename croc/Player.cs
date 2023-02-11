@@ -13,7 +13,7 @@ public class Player : Entity {
     private DateTime timeSinceStateChange;
     Texture2D current;
 
-    private int speed = 1000;
+    private int speed = 500;
     
     public Player(Texture2D t) : base(t) {
         this.texture = t;
@@ -21,40 +21,61 @@ public class Player : Entity {
         this.position = new Vector2(700, 900);
         state = State.STANDING;
     }
+
+    public void addWalkingTexture(Texture2D t) {
+        this.walking = t;
+    }
+
+    private DateTime timeSinceSpriteChange;
     
     public void draw(SpriteBatch s) {
         if (state == State.MOVING) {
-            if (current == texture && DateTime.Now > timeSinceStateChange.AddSeconds(0.1)) {
+            if (current == texture && DateTime.Now > timeSinceSpriteChange.AddSeconds(0.5)) {
                 current = walking;
-            } else if (current == walking && DateTime.Now > timeSinceStateChange.AddSeconds(0.1)) {
+                timeSinceSpriteChange = DateTime.Now;
+            } else if (current == walking && DateTime.Now > timeSinceSpriteChange.AddSeconds(0.5)) {
+                timeSinceSpriteChange = DateTime.Now;
                 current = texture;
             }
         }
-        else {
-            current = texture;
-        }
         
-        s.Draw(current, position, null, Color.White, rotation, Vector2.Zero, scale, SpriteEffects.None, 1f);
+        s.Draw(current, position, null, drawColour, rotation, Vector2.Zero, scale, SpriteEffects.None, 1f);
     }
-
-    public void getInput(float elapsedGameTime) {
+    
+    
+    public void getInput(float elapsedGameTime, MouseState ms) {
         float distance = speed * elapsedGameTime;
 
+        bool moved = false;
         if (Keyboard.GetState().IsKeyDown(Keys.A)) {
             position.X -= distance;
+            moved = true;
         }
         if (Keyboard.GetState().IsKeyDown(Keys.D)) {
             position.X += distance;
+            moved = true;
         }
         if (Keyboard.GetState().IsKeyDown(Keys.W)) {
             position.Y -= distance;
+            moved = true;
         }
         if (Keyboard.GetState().IsKeyDown(Keys.S)) {
             position.Y += distance;
+            moved = true;
+        }
+
+        if (moved & (state == State.STANDING)) {
+            state = State.MOVING;
+            timeSinceStateChange = DateTime.Now;
+        } else if (!moved & (state == State.MOVING)){
+            state = State.STANDING;
+            current = texture;
+            timeSinceStateChange = DateTime.Now;
         }
         
         
         CheckPosition(1920);
+        clickable = inClickingArea(ms);
     }
 
     public void CheckPosition(int widthBound) {
@@ -75,6 +96,27 @@ public class Player : Entity {
         else if (position.Y < upperHeightBound - (h / 2)) {
             position.Y = upperHeightBound - (h / 2);
         }
+    }
+
+    private Color drawColour = Color.White;
+    
+    public bool clickable;
+    int radius = 300;
+    public bool inClickingArea(MouseState ms) {
+        double g;
+
+        g = Math.Pow((ms.X - position.X), 2) + Math.Pow((ms.Y - position.Y), 2);
+        g = Math.Sqrt(g);
+
+        if (g < radius) {
+            drawColour = Color.Blue;
+            return true;
+        }
+        else {
+            drawColour = Color.White;
+            return false;
+        }
+
     }
 
 }

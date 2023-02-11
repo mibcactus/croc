@@ -33,3 +33,10 @@ C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\bush.
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\dot.xnb
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\buttontexture.xnb
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\menu.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\cursor.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\selected.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\creeper1.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\creeper2.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\creeper3.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\frogger.ogg
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\frogger.xnb

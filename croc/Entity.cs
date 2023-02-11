@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,7 +9,6 @@ public class Entity {
     public Vector2 position;
     public Texture2D texture;
     public Hitbox hitbox;
-    public int hp;
 
     public void setPosition(Vector2 p) {
         this.position = p;
@@ -25,11 +25,21 @@ public class Entity {
         this.texture = t;
     }
 
-    private void addHitbox(){
-        this.hitbox = new Hitbox(new Rectangle((int) position.X, (int) position.Y, texture.Width, texture.Height));
+    protected Entity() {
+        throw new NotImplementedException();
     }
 
     public void draw(SpriteBatch s) {
         s.Draw(texture, position, Color.White);
+    }
+    
+    public void setRandomPosition() {
+        Random rand = new Random();
+        float minY, x, y;
+        int maxY = 1080 - texture.Height;
+        x = rand.Next(0, 1920);
+        minY = (float) (Math.Pow(x - 1500, 2) / 5700) + 460;
+        y = rand.Next((int) minY, maxY);
+        this.position = new Vector2(x, y);
     }
 }
