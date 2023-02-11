@@ -96,6 +96,7 @@ public class CrocGame : Game {
         _font = Content.Load<SpriteFont>("file");
         _player.addWalkingTexture(Content.Load<Texture2D>("walking"));
 
+        //music by matthew
         this.song = Content.Load<Song>("frogger");
         MediaPlayer.Play(song);
         MediaPlayer.IsRepeating = true;
