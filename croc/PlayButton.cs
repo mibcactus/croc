@@ -6,7 +6,7 @@ namespace croc;
 
 public class PlayButton : Button {
     public PlayButton(int x, int y, int width, int height, string l, GameState state) : base(x, y, width, height, l) { }
-    public PlayButton(Texture2D t, int x, int y, int width, int height, string l, GameState state) : base(t, x, y, width, height, l) { }
+    public PlayButton(Texture2D t, int x, int y, string l, GameState state) : base(t, x, y, l) { }
 
     public void checkIfClicked(MouseState ms, ref GameState state) {
         Vector2 mouse_position = new Vector2(ms.X, ms.Y);

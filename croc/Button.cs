@@ -21,14 +21,19 @@ public abstract class Button {
         label = l;
     }
 
-    public Button(Texture2D t, int x, int y, int width, int height, String l) {
-        shape = new Rectangle(new Point(x, y), new Point(width, height));
+    public Button(Texture2D t, int x, int y, String l) {
+        int posX, posY;
         texture = t;
         label = l;
+        shape = new Rectangle(new Point(x, y), new Point(texture.Width, texture.Height));
+        posX = x + (texture.Width / 4);
+        posY = y + (texture.Height/2);
+        position = new Vector2(posX, posY);
+        
     }
 
     public void drawButton(SpriteBatch s, SpriteFont f) {
-        s.Draw(texture, shape, Color.Red);
+        s.Draw(texture, shape, Color.Yellow);
         s.DrawString(f, label, position, Color.Black);
     }
 

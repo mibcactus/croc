@@ -1,9 +1,11 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bush.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/bush.xnb","TextureProcessor","Texture2DContent",19630,40085,0.1746006
+"C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/buttontexture.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/buttontexture.xnb","TextureProcessor","Texture2DContent",20466,120085,0.1492951
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/daysky.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/daysky.xnb","TextureProcessor","Texture2DContent",977936,8294485,0.4109991
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/dot.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/dot.xnb","TextureProcessor","Texture2DContent",97,485,0.7293355
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/File.spritefont","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/File.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0.2336614
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/hill.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/hill.xnb","TextureProcessor","Texture2DContent",698828,8294485,0.2338652
+"C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/menu.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/menu.xnb","TextureProcessor","Texture2DContent",1464592,8294485,0.3849332
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/nightsky.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/nightsky.xnb","TextureProcessor","Texture2DContent",1495940,8294485,0.3165373
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/standing.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/standing.xnb","TextureProcessor","Texture2DContent",80713,657469,0.0182845
 "C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/walking.png","C:/Users/Milica/Documents/Coding/csharp/croc/croc/Content/bin/DesktopGL/Content/walking.xnb","TextureProcessor","Texture2DContent",88327,657469,0.0197018

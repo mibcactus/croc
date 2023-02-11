@@ -28,6 +28,7 @@ public class CrocGame : Game {
     //bg textures
     private Texture2D sky;
     private Texture2D hill;
+    private Texture2D menuBG;
     
     //entities
     
@@ -55,6 +56,7 @@ public class CrocGame : Game {
     private void loadBackground() {
         sky = Content.Load<Texture2D>("daysky");
         hill = Content.Load<Texture2D>("hill");
+        menuBG = Content.Load<Texture2D>("menu");
     }
     public CrocGame() {
         _graphics = new GraphicsDeviceManager(this);
@@ -126,7 +128,7 @@ public class CrocGame : Game {
 
     private void updateMainMenu(GameTime gameTime) {
         if (_playButton == null) {
-            _playButton = new PlayButton(Content.Load<Texture2D>("bush"), 40, 40, 200, 150, "PLAY GAME", _state);
+            _playButton = new PlayButton(Content.Load<Texture2D>("buttontexture"), screenWidth/2, 700,  "PLAY GAME", _state);
         }
         else {
             _playButton.checkIfClicked(_mouseState, ref _state);
@@ -204,14 +206,16 @@ public class CrocGame : Game {
         _player.draw(_spriteBatch);
     }
 
+    
+    
     private void drawMainMenu(GameTime gameTime) {
+        
         currentTick = 1000;
-        drawBackground();
+        
+        _spriteBatch.Draw(menuBG, System.Numerics.Vector2.Zero, Color.White);
+        
+        
         _playButton.drawButton(_spriteBatch, _font);
-    }
-
-    private void drawPlayButton() {
-        String str = "PLAY";
     }
 
     private void drawGameOver(GameTime gameTime) {

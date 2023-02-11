@@ -31,3 +31,5 @@ C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\walki
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\File.xnb
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\bush.xnb
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\dot.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\buttontexture.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\menu.xnb
