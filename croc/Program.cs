@@ -1,3 +1,3 @@
 ﻿
-using var game = new croc.Game1();
+using var game = new croc.CrocGame();
 game.Run();

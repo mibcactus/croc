@@ -23,3 +23,11 @@ C:\Users\Milica\Documents\Coding\csharp\croc\croc\obj\Debug\net6.0\refint\croc.d
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\obj\Debug\net6.0\croc.pdb
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\obj\Debug\net6.0\croc.genruntimeconfig.cache
 C:\Users\Milica\Documents\Coding\csharp\croc\croc\obj\Debug\net6.0\ref\croc.dll
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\daysky.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\hill.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\nightsky.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\standing.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\walking.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\File.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\bush.xnb
+C:\Users\Milica\Documents\Coding\csharp\croc\croc\bin\Debug\net6.0\Content\dot.xnb

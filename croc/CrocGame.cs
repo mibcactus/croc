@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System;
+using System.Net.Mime;
 using System.Numerics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,35 +8,43 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace croc;
 
-public class Game1 : Game {
+public class CrocGame : Game {
+    private bool DEBUG = true;
+    
+    //graphics stuff
+    private GraphicsDeviceManager _graphics;
+    private SpriteBatch _spriteBatch;    
     private int screenWidth = 1920;
     private int screenHeight = 1080;
     private Vector2 centre;
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
-
-    private bool DEBUG = true;
     
     private int currentTick = 0;
+    private Random rand;
 
     //bg textures
     private Texture2D sky;
     private Texture2D hill;
+    
+    //bush
+    //private Entity[] bushes;
+    private Bush[] bushes = new Bush[5];
+    
 
     //game font
     private SpriteFont _font;
     
     private void debugMessages() {
-        drawCurrentTick();
-    }
-    private void drawCurrentTick() {
-        _spriteBatch.DrawString(_font, "Current time: " + currentTick, new Vector2(20,120), Color.Crimson);
+        Vector2 location = new Vector2(20, 120);
+        Color colour = Color.Crimson;
+        drawEquation(-1500, 5700, 460);
+        _spriteBatch.DrawString(_font, "Current time: " + currentTick, location, colour);
+        //_spriteBatch.DrawString(_font, "Bush position: "+ bush.position, new Vector2(20, 140), colour);
     }
     private void loadBackground() {
         sky = Content.Load<Texture2D>("daysky");
         hill = Content.Load<Texture2D>("hill");
     }
-    public Game1() {
+    public CrocGame() {
         _graphics = new GraphicsDeviceManager(this);
         _graphics.PreferredBackBufferWidth = screenWidth;
         _graphics.PreferredBackBufferHeight = screenHeight;
@@ -47,9 +56,13 @@ public class Game1 : Game {
         IsMouseVisible = true;
     }
 
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
+    protected override void Initialize() {
+        for (int i = 0; i < bushes.Length; i++) {
+            bushes[i] = new Bush(Content.Load<Texture2D>("bush"));
+        }
+        
+        
+        // bushes = new Entity[bushAmount](Content.Load<Texture2D>("bush"), new Vector2(rand.Next(200, 1000), rand.Next(100, 1500) ) );
         base.Initialize();
     }
 
@@ -91,7 +104,20 @@ public class Game1 : Game {
     }
 
 
-    
+    protected void drawEquation(int n, int m, int c) {
+        float x, y;
+        Vector2 pos = new Vector2(0,0);
+        var dot = Content.Load<Texture2D>("dot");
+
+        x = 0;
+        while (x < screenWidth) {
+            y = (float )(Math.Pow(x + n, 2) / m) + c;
+            pos.X = x;
+            pos.Y = y;
+            _spriteBatch.Draw(dot, pos, Color.White);
+            x += (float) 0.2;
+        }
+    }
 
     protected override void Draw(GameTime gameTime) {
         GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -99,6 +125,9 @@ public class Game1 : Game {
         _spriteBatch.Begin();
 
         drawBackground();
+        foreach (var bush in bushes) {
+            bush.draw(_spriteBatch);
+        }
 
 
         if (DEBUG) { debugMessages(); }

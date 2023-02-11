@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using System.Numerics;
+﻿using Microsoft.Xna.Framework;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace croc; 
@@ -19,5 +19,17 @@ public class Entity {
         this.texture = t;
         this.position = p;
         this.hitbox = new Hitbox(new Rectangle((int) position.X, (int) position.Y, texture.Width, texture.Height));
+    }
+
+    public Entity(Texture2D t) {
+        this.texture = t;
+    }
+
+    private void addHitbox(){
+        this.hitbox = new Hitbox(new Rectangle((int) position.X, (int) position.Y, texture.Width, texture.Height));
+    }
+
+    public void draw(SpriteBatch s) {
+        s.Draw(texture, position, Color.White);
     }
 }
