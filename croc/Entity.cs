@@ -12,7 +12,6 @@ public class Entity {
 
     public void setPosition(Vector2 p) {
         this.position = p;
-        
     }
 
     public Entity(Texture2D t, Vector2 p) {
