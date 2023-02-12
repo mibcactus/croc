@@ -9,7 +9,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace croc; 
 
-public abstract class Button {
+public class Button {
     public Rectangle shape;
     private Vector2 position;
     private Texture2D texture;
@@ -26,9 +26,27 @@ public abstract class Button {
         texture = t;
         label = l;
         shape = new Rectangle(new Point(x, y), new Point(texture.Width, texture.Height));
-        posX = x + (texture.Width / 4);
+        posX = x + (texture.Width / 44);
         posY = y + (texture.Height/2);
         position = new Vector2(posX, posY);
+        
+    }
+
+    public Button(Texture2D t, int x, int y, String l, Action someMethod) {
+        int posX, posY;
+        texture = t;
+        label = l;
+        shape = new Rectangle(new Point(x, y), new Point(texture.Width, texture.Height));
+        posX = x + (texture.Width / 44);
+        posY = y + (texture.Height/2);
+        position = new Vector2(posX, posY);
+    }
+    
+    public void checkIfClicked(MouseState ms, Action someMethod) {
+        Vector2 mouse_position = new Vector2(ms.X, ms.Y);
+        if (shape.Contains(mouse_position) && ms.LeftButton == ButtonState.Pressed) {
+            someMethod();
+        }
         
     }
 

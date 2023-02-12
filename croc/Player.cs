@@ -28,7 +28,7 @@ public class Player : Entity {
 
     private DateTime timeSinceSpriteChange;
     
-    public void draw(SpriteBatch s) {
+    public new void draw(SpriteBatch s) {
         if (state == State.MOVING) {
             if (current == texture && DateTime.Now > timeSinceSpriteChange.AddSeconds(0.5)) {
                 current = walking;

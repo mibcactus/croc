@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace croc; 
 
@@ -9,10 +10,15 @@ public class Entity {
     public Vector2 position;
     public Texture2D texture;
     public Hitbox hitbox;
+    public string info = "Nothing to see here!";
 
     public void setPosition(Vector2 p) {
         this.position = p;
         
+    }
+
+    public string getInfo() {
+        return info;
     }
 
     public Entity(Texture2D t, Vector2 p) {
@@ -41,5 +47,13 @@ public class Entity {
         minY = (float) (Math.Pow(x - 1500, 2) / 5700) + 460;
         y = rand.Next((int) minY, maxY);
         this.position = new Vector2(x, y);
+    }
+    
+    public void checkIfClicked(MouseState ms, Action someMethod) {
+        Vector2 mouse_position = new Vector2(ms.X, ms.Y);
+        if (hitbox.hitbox.Contains(mouse_position) && ms.LeftButton == ButtonState.Pressed) {
+            someMethod();
+        }
+        
     }
 }
