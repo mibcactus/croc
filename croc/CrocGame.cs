@@ -25,7 +25,6 @@ public class CrocGame : Game {
     private MouseState _mouseState;
     private DateTime timeWhenPressed;
     
-    private Song song;
     
     //bg textures
     private Texture2D sky;
@@ -48,7 +47,7 @@ public class CrocGame : Game {
     
     //button stuff
     private PlayButton _playButton;
-    private static Texture2D buttonTexture;
+    private Texture2D buttonTexture;
     
     private void debugMessages() {
         Vector2 location = new Vector2(20, 120);
@@ -90,7 +89,7 @@ public class CrocGame : Game {
         base.Initialize();
     }
 
-    
+    private Song song;
     
     protected override void LoadContent() {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -174,13 +173,6 @@ public class CrocGame : Game {
             currentTick++;
         } else {
             currentTick = 0;
-        }
-
-        if (_player.clickable) {
-            foreach (var bush in bushes) {
-                bush.checkIfClicked(_mouseState, bush.onClick);
-                
-            }
         }
     }
     private void updateGameOver(GameTime gameTime) {
