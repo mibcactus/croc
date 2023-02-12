@@ -11,9 +11,9 @@ namespace croc;
 
 public abstract class Button {
     public Rectangle shape;
-    private Vector2 position;
-    private Texture2D texture;
-    private String label;
+    protected Vector2 position;
+    protected Texture2D texture;
+    protected String label;
 
     public Button(int x, int y, int width, int height, String l) {
         shape = new Rectangle(new Point(x, y), new Point(width, height));

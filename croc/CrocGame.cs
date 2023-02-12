@@ -59,7 +59,7 @@ public class CrocGame : Game {
         _spriteBatch.DrawString(_font, "Clickable: " + _player.clickable, new Vector2(20, 180), colour);
     }
     private void loadBackground() {
-        sky = Content.Load<Texture2D>("daysky");
+        sky = Content.Load<Texture2D>("nightsky");
         hill = Content.Load<Texture2D>("hill");
         menuBG = Content.Load<Texture2D>("menu");
     }
@@ -164,15 +164,19 @@ public class CrocGame : Game {
         _player.getInput((float) gameTime.ElapsedGameTime.TotalSeconds, _mouseState);
         
         if (currentTick == 600) {
-            sky = Content.Load<Texture2D>("nightsky");
-        } else if (currentTick == 1199) {
             sky = Content.Load<Texture2D>("daysky");
+        } else if (currentTick == 1199) {
+            sky = Content.Load<Texture2D>("nightsky");
         }
 
         if (currentTick < 1200) {
             currentTick++;
         } else {
             currentTick = 0;
+        }
+
+        foreach (var bush in bushes) {
+            bush.checkIfClicked(_mouseState);
         }
     }
     private void updateGameOver(GameTime gameTime) {
@@ -224,7 +228,7 @@ public class CrocGame : Game {
     private void drawGameplay(GameTime gameTime) {
         drawBackground();
         foreach (var bush in bushes) {
-            bush.draw(_spriteBatch);
+            bush.draw(_spriteBatch, _font);
         }
 
         _player.draw(_spriteBatch);
@@ -237,6 +241,7 @@ public class CrocGame : Game {
         currentTick = 1000;
         
         _spriteBatch.Draw(menuBG, System.Numerics.Vector2.Zero, Color.White);
+        _spriteBatch.DrawString(_font, "Artwork & Code by mib,\nMusic by Matthew Taylor\n& used with permission", new Vector2(1500, 900), Color.Black);
         
         
         _playButton.drawButton(_spriteBatch, _font);
